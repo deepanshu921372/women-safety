@@ -1,12 +1,27 @@
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.MONGO_URI);
-
 const citizenSchema = new mongoose.Schema({
-  name: String,
-  age: Number,
+  fullName: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  phoneNumber: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-const Citizen = mongoose.model("Citizen", citizenSchema);
-
-module.exports = Citizen;
+module.exports = mongoose.model("Citizen", citizenSchema);
