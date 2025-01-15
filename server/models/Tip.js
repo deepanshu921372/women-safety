@@ -1,13 +1,10 @@
 const mongoose = require('mongoose');
 
 const tipSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  phone: {
-    type: String,
-    required: true,
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
   time: {
     type: String,
@@ -17,16 +14,15 @@ const tipSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  title: {
+  status: {
     type: String,
-    required: true,
+    enum: ['Pending', 'Solved'],
+    default: 'Pending'
   },
-  description: {
+  type: {
     type: String,
-    required: true,
-  },
-  media: {
-    type: String, // URL to uploaded media
+    enum: ['Regular', 'SOS'],
+    default: 'Regular'
   },
   createdAt: {
     type: Date,

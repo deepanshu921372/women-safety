@@ -93,75 +93,77 @@ export default function TipsScreen() {
   return (
     <ThemedView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <ThemedText type="title" style={styles.heading}>Anonymous Tip</ThemedText>
-        
-        <TextInput
-          style={styles.input}
-          placeholder="Name"
-          value={name}
-          onChangeText={setName}
-        />
+        <View style={styles.formContainer}>
+          <ThemedText type="title" style={styles.heading}>Anonymous Tip</ThemedText>
+          
+          <TextInput
+            style={styles.input}
+            placeholder="Name"
+            value={name}
+            onChangeText={setName}
+          />
 
-        <TextInput
-          style={[
-            styles.input,
-            phoneError ? styles.inputError : null
-          ]}
-          placeholder="Phone Number"
-          value={phone}
-          onChangeText={validatePhone}
-          keyboardType="numeric"
-          maxLength={10}
-        />
-        {phoneError ? (
-          <ThemedText style={styles.errorText}>{phoneError}</ThemedText>
-        ) : null}
+          <TextInput
+            style={[
+              styles.input,
+              phoneError ? styles.inputError : null
+            ]}
+            placeholder="Phone Number"
+            value={phone}
+            onChangeText={validatePhone}
+            keyboardType="numeric"
+            maxLength={10}
+          />
+          {phoneError ? (
+            <ThemedText style={styles.errorText}>{phoneError}</ThemedText>
+          ) : null}
 
-        <TextInput
-          style={styles.input}
-          placeholder="Time of Incident"
-          value={time}
-          onChangeText={setTime}
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="Time of Incident"
+            value={time}
+            onChangeText={setTime}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Location"
-          value={location}
-          onChangeText={setLocation}
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="Location"
+            value={location}
+            onChangeText={setLocation}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Title"
-          value={title}
-          onChangeText={setTitle}
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="Title"
+            value={title}
+            onChangeText={setTitle}
+          />
 
-        <TextInput
-          style={[styles.input, styles.textArea]}
-          placeholder="Description"
-          value={description}
-          onChangeText={setDescription}
-          multiline
-          numberOfLines={4}
-        />
+          <TextInput
+            style={[styles.input, styles.textArea]}
+            placeholder="Description"
+            value={description}
+            onChangeText={setDescription}
+            multiline
+            numberOfLines={4}
+          />
 
-        <TouchableOpacity 
-          style={styles.mediaButton}
-          onPress={pickImage}
-        >
-          <ThemedText style={styles.mediaButtonText}>
-            {media ? 'Media Selected' : 'Add Media'}
-          </ThemedText>
-        </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.mediaButton}
+            onPress={pickImage}
+          >
+            <ThemedText style={styles.mediaButtonText}>
+              {media ? 'Media Selected' : 'Add Media'}
+            </ThemedText>
+          </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.submitButton}
-          onPress={handleSubmit}
-        >
-          <ThemedText style={styles.submitButtonText}>Submit Tip</ThemedText>
-        </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.submitButton}
+            onPress={handleSubmit}
+          >
+            <ThemedText style={styles.submitButtonText}>Submit Tip</ThemedText>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </ThemedView>
   );
@@ -173,12 +175,16 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
+  },
+  formContainer: {
     alignItems: 'center',
-    padding: 20,
+    paddingTop: 60,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
   heading: {
     fontSize: 28,
-    marginBottom: 30,
+    marginBottom: 40,
     fontWeight: 'bold',
   },
   input: {
