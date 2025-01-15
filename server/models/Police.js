@@ -1,6 +1,15 @@
 const mongoose = require('mongoose');
 
 const policeSchema = new mongoose.Schema({
+  fullName: {
+    type: String,
+    required: true,
+  },
+  badgeNumber: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   email: {
     type: String,
     required: true,
@@ -10,23 +19,9 @@ const policeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  badgeNumber: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  fullName: {
-    type: String,
-    required: true,
-  },
-  department: {
-    type: String,
-    required: true,
-  },
-  rank: String,
-  verified: {
+  isPolice: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   createdAt: {
     type: Date,

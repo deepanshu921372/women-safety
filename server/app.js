@@ -17,6 +17,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Routes
 app.use('/auth/citizen', require('./routes/auth/citizen'));
+app.use('/auth/police', require('./routes/auth/police'));
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
