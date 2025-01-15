@@ -8,7 +8,7 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Ionicons } from '@expo/vector-icons';
 
-const API_URL = 'http://192.168.1.7:5000'; // Replace with your IP
+const API_URL = 'http://localhost:5000'; 
 
 interface Tip {
   id: string;
@@ -68,8 +68,8 @@ export default function CitizenHomeScreen() {
       await Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.High,
-          timeInterval: 10000, // Update every 10 seconds
-          distanceInterval: 10, // Update every 10 meters
+          timeInterval: 10000, 
+          distanceInterval: 10, 
         },
         (newLocation) => {
           setLocation(newLocation);
@@ -168,6 +168,20 @@ export default function CitizenHomeScreen() {
     setTips([]);
   };
 
+  const handleTipsPress = () => {
+    router.push('/(auth)/login/tips');
+  };
+
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.multiRemove(['userToken', 'userName', 'userEmail']);
+      router.replace('/(auth)/login');
+    } catch (error) {
+      console.error('Error during logout:', error);
+      Alert.alert('Error', 'Failed to logout');
+    }
+  };
+
   return (
     <ThemedView style={styles.container}>
       {/* Header */}
@@ -228,6 +242,24 @@ export default function CitizenHomeScreen() {
           </View>
         ))}
       </ScrollView>
+
+      <View style={styles.bottomButtons}>
+        <TouchableOpacity 
+          style={[styles.bottomButton, styles.tipsButton]}
+          onPress={handleTipsPress}
+        >
+          <Ionicons name="document-text" size={24} color="white" />
+          <ThemedText style={styles.bottomButtonText}>TIPS</ThemedText>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={[styles.bottomButton, styles.logoutButton]}
+          onPress={handleLogout}
+        >
+          <Ionicons name="log-out" size={24} color="white" />
+          <ThemedText style={styles.bottomButtonText}>LOGOUT</ThemedText>
+        </TouchableOpacity>
+      </View>
     </ThemedView>
   );
 }
@@ -236,6 +268,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    paddingBottom: 80,
   },
   header: {
     flexDirection: 'row',
@@ -305,6 +338,7 @@ const styles = StyleSheet.create({
   },
   tipsContainer: {
     flex: 1,
+    marginBottom: 70,
   },
   tipCard: {
     flexDirection: 'row',
@@ -326,6 +360,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 4,
+    color: '#000',
   },
   tipLocation: {
     fontSize: 14,
@@ -349,5 +384,46 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 12,
     fontWeight: 'bold',
+  },
+  bottomButtons: {
+    flexDirection: 'row',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: '#fff',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderTopWidth: 1,
+    borderTopColor: '#eee',
+    justifyContent: 'space-between',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: -2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 5,
+  },
+  bottomButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 12,
+    borderRadius: 8,
+    width: '48%',
+  },
+  tipsButton: {
+    backgroundColor: '#4CAF50',
+  },
+  logoutButton: {
+    backgroundColor: '#f44336',
+  },
+  bottomButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 8,
   },
 }); 
